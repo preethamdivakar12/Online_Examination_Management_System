@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { fetchQuestionsByQuiz } from "../../../actions/questionsActions";
 import Sidebar from "../../../components/Sidebar";
-import Question from "../../../components/Question";
 import Loader from "../../../components/Loader";
 
 const AdminQuestionsPage = () => {
@@ -18,7 +17,6 @@ const AdminQuestionsPage = () => {
   const questionsReducer = useSelector((state) => state.questionsReducer);
   const [questions, setQuestions] = useState(questionsReducer.questions);
   const token = JSON.parse(localStorage.getItem("jwtToken"));
-  let answers = {};
 
   const addNewQuestionHandler = () => {
     navigate(`/adminAddQuestion/?quizId=${quizId}`);
@@ -32,33 +30,39 @@ const AdminQuestionsPage = () => {
     fetchQuestionsByQuiz(dispatch, quizId, token).then((data) =>
       setQuestions(data.payload)
     );
-  }, []);
+  }, [dispatch, quizId, token]);
 
   return (
     <div className="adminQuestionsPage__container">
       <div className="adminQuestionsPage__sidebar">
         <Sidebar />
       </div>
+
       <div className="adminQuestionsPage__content">
         <h2>{`Questions : ${quizTitle}`}</h2>
+
         <Button
           className="adminQuestionsPage__content--button"
           onClick={addNewQuestionHandler}
         >
           Add Question
         </Button>
+
         {questions ? (
-          questions.map((q, index) => {
-            return (
-              <Question
-                key={index}
-                number={index + 1}
-                answers={answers}
-                question={q}
-                isAdmin={true}
-              />
-            );
-          })
+          <div className="adminQuestionsPage__questionsList">
+            {questions.map((q, index) => (
+              <div key={index} className="adminQuestionsPage__questionCard">
+                <h5>{`Q${index + 1}. ${q.content}`}</h5>
+                <p><strong>Option 1:</strong> {q.option1}</p>
+                <p><strong>Option 2:</strong> {q.option2}</p>
+                <p><strong>Option 3:</strong> {q.option3}</p>
+                <p><strong>Option 4:</strong> {q.option4}</p>
+                <p><strong>Answer:</strong> {q[q.answer]}</p>
+                <p><strong>Difficulty:</strong> {q.difficulty}</p>
+                <p><strong>Marks:</strong> {q.marks}</p>
+              </div>
+            ))}
+          </div>
         ) : (
           <Loader />
         )}

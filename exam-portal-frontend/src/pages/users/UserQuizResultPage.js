@@ -60,7 +60,7 @@ const UserQuizResultPage = () => {
                     <td>{r.quiz.title}</td>
                     <td>{r.quiz.category.title}</td>
                     <td>{r.totalObtainedMarks}</td>
-                    <td>{r.quiz.maxMarks}</td>
+                    <td>10</td>
                     <td>{r.attemptDatetime}</td>
                   </tr>
                 </tbody>

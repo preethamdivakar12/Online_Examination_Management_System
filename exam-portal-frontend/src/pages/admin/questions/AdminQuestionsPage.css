@@ -21,3 +21,25 @@
     background-color: rgb(68 177 49);
     color: white;
 }
+
+
+.adminQuestionsPage__questionsList {
+    margin-top: 20px;
+  }
+  
+  .adminQuestionsPage__questionCard {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: #fdfdfd;
+  }
+  
+  .adminQuestionsPage__questionCard h5 {
+    margin-bottom: 10px;
+  }
+  
+  .adminQuestionsPage__questionCard p {
+    margin: 4px 0;
+  }
+  
